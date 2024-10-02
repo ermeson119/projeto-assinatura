@@ -1,10 +1,10 @@
 import './Form.css'
 import React, { useState } from "react";
+import '../App.css';
 
 export default function Form() {
 
     const [formData, setFormData] = useState({
-        ordem: "",
         processo: "",
         interessado: "",
         setor: "",
@@ -13,6 +13,8 @@ export default function Form() {
         sgd: "",
         providencia: "",
     });
+
+    const [registros, setRegistros] = useState([]);
 
     // Função para lidar com a mudança nos inputs
     const handleChange = (e) => {
@@ -23,30 +25,37 @@ export default function Form() {
         }));
     };
 
-    // Função para lidar com a submissão do formulário
+    // Função para adicionar um novo registro à tabela
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Dados do formulário submetidos:", formData);
-        // Aqui você pode enviar os dados para o back-end ou API
+        setRegistros((prevRegistros) => [...prevRegistros, formData]);
+
+        // Limpar o formulário após adicionar
+        setFormData({
+            processo: "",
+            interessado: "",
+            setor: "",
+            tipoDocumento: "",
+            valor: "",
+            sgd: "",
+            providencia: "",
+        });
     };
+
+    // Função para finalizar o registro
+    const finalizarRegistro = () => {
+        console.log("Registro finalizado:", registros);
+        // Aqui você pode enviar os dados para uma API ou processar de outra maneira
+        alert("Registros finalizados com sucesso!");
+        setRegistros([]); // Limpar a tabela após finalizar
+    };
+    
     return (
 
         <div className="container mt-5">
             <h2 className="text-center">Formulário de Registro de Execução Orçamentária e Financeira</h2>
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
-                    <div className="col">
-                        <label htmlFor="ordem" className="form-label">Ordem</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            id="ordem"
-                            value={formData.ordem}
-                            onChange={handleChange}
-                            placeholder="Digite a ordem"
-                            required
-                        />
-                    </div>
                     <div className="col">
                         <label htmlFor="processo" className="form-label">Processo</label>
                         <input
@@ -143,10 +152,39 @@ export default function Form() {
 
                 <button type="submit" className="btn btn-primary">Adicionar no Relátorio</button>
             </form>
+
+            {/* Tabela de registros */}
+            {registros.length > 0 && (
+                <>
+                    <h3 className="mt-5">Relatório de Registros</h3>
+                    <table className="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th>Processo</th>
+                                <th>Interessado</th>
+                                <th>Setor</th>
+                                <th>Tipo de Documento/Assunto</th>
+                                <th>Valor (R$)</th>
+                                <th>SGD P Assinatura</th>
+                                <th>Providência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {registros.map((registro, index) => (
+                                <tr key={index}>
+                                    <td>{registro.processo}</td>
+                                    <td>{registro.interessado}</td>
+                                    <td>{registro.setor}</td>
+                                    <td>{registro.tipoDocumento}</td>
+                                    <td>{registro.valor}</td>
+                                    <td>{registro.sgd}</td>
+                                    <td>{registro.providencia}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </>
+            )}
         </div>
-
-
-
-
     )
 }
