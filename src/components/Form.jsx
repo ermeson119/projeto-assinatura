@@ -16,21 +16,37 @@ export default function Form() {
 
     const [registros, setRegistros] = useState([]);
 
-    // Função para lidar com a mudança nos inputs
     const handleChange = (e) => {
         const { id, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [id]: value,
-        }));
+
+        if (id === "valor") {
+            const formattedValue = formatCurrency(value);
+            setFormData((prevData) => ({
+                ...prevData,
+                [id]: formattedValue,
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [id]: value,
+            }));
+        }
     };
 
-    // Função para adicionar um novo registro à tabela
+    const formatCurrency = (value) => {
+        const numericValue = value.replace(/\D/g, '');
+        const formattedValue = new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2
+        }).format(numericValue / 100);
+        return formattedValue;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setRegistros((prevRegistros) => [...prevRegistros, formData]);
 
-        // Limpar o formulário após adicionar
         setFormData({
             processo: "",
             interessado: "",
@@ -42,16 +58,13 @@ export default function Form() {
         });
     };
 
-    // Função para finalizar o registro
     const finalizarRegistro = () => {
         console.log("Registro finalizado:", registros);
-        // Aqui você pode enviar os dados para uma API ou processar de outra maneira
         alert("Registros finalizados com sucesso!");
         setRegistros([]); // Limpar a tabela após finalizar
     };
-    
-    return (
 
+    return (
         <div className="container mt-5">
             <h2 className="text-center">Formulário de Registro de Execução Orçamentária e Financeira</h2>
             <form onSubmit={handleSubmit}>
@@ -59,11 +72,16 @@ export default function Form() {
                     <div className="col">
                         <label htmlFor="processo" className="form-label">Processo</label>
                         <input
-                            type="text"
+                            type="text"  // Alterado para text
                             className="form-control"
                             id="processo"
                             value={formData.processo}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^\d*$/.test(value)) { // Regex para permitir apenas números
+                                    handleChange(e);
+                                }
+                            }}
                             placeholder="Digite o número do processo"
                             required
                         />
@@ -114,8 +132,7 @@ export default function Form() {
                     <div className="col">
                         <label htmlFor="valor" className="form-label">Valor (R$)</label>
                         <input
-                            type="number"
-                            step="0.01"
+                            type="text"  // Alterado para "text" devido à máscara de moeda
                             className="form-control"
                             id="valor"
                             value={formData.valor}
@@ -127,33 +144,40 @@ export default function Form() {
                     <div className="col">
                         <label htmlFor="sgd" className="form-label">SGD P Assinatura</label>
                         <input
-                            type="text"
+                            type="text" // Alterado para text
                             className="form-control"
                             id="sgd"
                             value={formData.sgd}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (/^\d*$/.test(value)) { // Regex para permitir apenas números
+                                    handleChange(e);
+                                }
+                            }}
                             placeholder="Digite o SGD P Assinatura"
                             required
                         />
                     </div>
+
                     <div className="col">
-                        <label htmlFor="providencia" className="form-label">Providência</label>
-                        <input
-                            type="text"
+                        <label htmlFor="providencia" className="form-label">Tipo de Assinatura</label>
+                        <select
                             className="form-control"
                             id="providencia"
                             value={formData.providencia}
                             onChange={handleChange}
-                            placeholder="Digite a providência"
                             required
-                        />
+                        >
+                            <option value="">Selecione</option>
+                            <option value="Assinar">ASSINAR</option>
+                            <option value="Assinar-com-token">ASSINAR COM TOKEN</option>
+                        </select>
                     </div>
                 </div>
 
                 <button type="submit" className="btn btn-primary">Adicionar no Relátorio</button>
             </form>
 
-            {/* Tabela de registros */}
             {registros.length > 0 && (
                 <>
                     <h3 className="mt-5">Relatório de Registros</h3>

@@ -1,6 +1,0 @@
-/* Ocultar elementos durante a impressão */
-@media print {
-    .no-print {
-        display: none;
-    }
-}
