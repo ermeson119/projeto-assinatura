@@ -13,7 +13,7 @@ function App() {
       <Img src={Imgagem} alt='logo-imagem' />
       < Form />
       <Footer>
-        <P>Sercretaria de Administração © - SECAD 2024</P>
+        <P>© Sercretaria de Administração - SECAD 2024</P>
       </Footer>
 
     </div>
