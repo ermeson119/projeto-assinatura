@@ -70,10 +70,10 @@ export default function Form() {
 
     const handleProcessoChange = (e) => {
         let { value } = e.target;
-    
+
         // Remove todos os caracteres que não sejam números
         value = value.replace(/\D/g, '');
-    
+
         // Aplica a máscara no formato ####/#####/######
         if (value.length > 4) {
             value = value.slice(0, 4) + '/' + value.slice(4);
@@ -81,14 +81,14 @@ export default function Form() {
         if (value.length > 10) {
             value = value.slice(0, 10) + '/' + value.slice(10, 16);
         }
-    
+
         // Atualiza o valor do estado com a máscara
         setFormData((prevData) => ({
             ...prevData,
             processo: value,
         }));
     };
-    
+
 
     // const finalizarRegistro = () => {
     //     console.log("Registro finalizado:", registros);
@@ -97,138 +97,144 @@ export default function Form() {
     // };
 
     return (
-        <div className="container mt-5">
-            <h2 className="text-center">Formulário de Registro de Execução Orçamentária e Financeira</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="row mb-3">
-                    <div className="col">
-                        <label htmlFor="processo" className="form-label">Processo</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="processo"
-                            value={formData.processo}
-                            onChange={handleProcessoChange}  // Usaremos uma função específica para o campo "processo"
-                            placeholder="Digite o número do processo"
-                            required
-                        />
+        <div className='container'>
+            <div className="container mt-5 caixa shadow" >
+                <h2 className="text-center" id='text-formulario'>Formulário de Registro de Execução Orçamentária e Financeira</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="row mb-3">
+                        <div className="col">
+                            <label htmlFor="processo" className="form-label">Processo</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="processo"
+                                value={formData.processo}
+                                onChange={handleProcessoChange}  // Usaremos uma função específica para o campo "processo"
+                                placeholder="Digite o número do processo"
+                                required
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="row mb-3">
-                    <div className="col">
-                        <label htmlFor="interessado" className="form-label">Interessado</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="interessado"
-                            value={formData.interessado}
-                            onChange={handleChange}
-                            placeholder="Digite o interessado"
-                            required
-                        />
+                    <div className="row mb-3">
+                        <div className="col">
+                            <label htmlFor="interessado" className="form-label">Interessado</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="interessado"
+                                value={formData.interessado}
+                                onChange={handleChange}
+                                placeholder="Digite o interessado"
+                                required
+                            />
+                        </div>
+                        <div className="col">
+                            <label htmlFor="setor" className="form-label">Setor</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="setor"
+                                value={formData.setor}
+                                onChange={handleChange}
+                                placeholder="Digite o setor"
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="col">
-                        <label htmlFor="setor" className="form-label">Setor</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="setor"
-                            value={formData.setor}
-                            onChange={handleChange}
-                            placeholder="Digite o setor"
-                            required
-                        />
-                    </div>
-                </div>
 
-                <div className="mb-3">
-                    <label htmlFor="tipoDocumento" className="form-label">Tipo de Documento/Assunto</label>
-                    <textarea
-                        className="form-control"
-                        id="tipoDocumento"
-                        rows="3"
-                        value={formData.tipoDocumento}
-                        onChange={handleChange}
-                        placeholder="Descreva o tipo de documento ou assunto"
-                        required
-                    ></textarea>
-                </div>
-
-                <div className="row mb-3">
-                    <div className="col">
-                        <label htmlFor="valor" className="form-label">Valor (R$)</label>
-                        <input
-                            type="text"  // Alterado para "text" devido à máscara de moeda
+                    <div className="mb-3">
+                        <label htmlFor="tipoDocumento" className="form-label">Tipo de Documento/Assunto</label>
+                        <textarea
                             className="form-control"
-                            id="valor"
-                            value={formData.valor}
+                            id="tipoDocumento"
+                            rows="3"
+                            value={formData.tipoDocumento}
                             onChange={handleChange}
-                            placeholder="Digite o valor em R$"
-                        />
-                    </div>
-                    <div className="col">
-                        <label htmlFor="sgd" className="form-label">SGD P Assinatura</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="sgd"
-                            value={formData.sgd}
-                            onChange={handleChange}
-                            placeholder="Digite o SGD P Assinatura"
+                            placeholder="Descreva o tipo de documento ou assunto"
                             required
-                        />
+                        ></textarea>
                     </div>
-                    <div className="col">
-                        <label htmlFor="providencia" className="form-label">Tipo de Assinatura</label>
-                        <select
-                            className="form-control"
-                            id="providencia"
-                            value={formData.providencia}
-                            onChange={handleChange}
-                            required
-                        >
-                            <option value="">Selecione</option>
-                            <option value="Assinar">ASSINAR</option>
-                            <option value="Assinar-com-token">ASSINAR COM TOKEN</option>
-                        </select>
+
+                    <div className="row mb-3">
+                        <div className="col">
+                            <label htmlFor="valor" className="form-label">Valor (R$)</label>
+                            <input
+                                type="text"  // Alterado para "text" devido à máscara de moeda
+                                className="form-control"
+                                id="valor"
+                                value={formData.valor}
+                                onChange={handleChange}
+                                placeholder="Digite o valor em R$"
+                            />
+                        </div>
+                        <div className="col">
+                            <label htmlFor="sgd" className="form-label">SGD P Assinatura</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="sgd"
+                                value={formData.sgd}
+                                onChange={handleChange}
+                                placeholder="Digite o SGD P Assinatura"
+                                required
+                            />
+                        </div>
+                        <div className="col">
+                            <label htmlFor="providencia" className="form-label">Tipo de Assinatura</label>
+                            <select
+                                className="form-control"
+                                id="providencia"
+                                value={formData.providencia}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Selecione</option>
+                                <option value="Assinar">ASSINAR</option>
+                                <option value="Assinar-com-token">ASSINAR COM TOKEN</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <button type="submit" className="btn btn-primary mt-3">Adicionar no Relátorio</button>
-            </form>
+                    <button type="submit" className="btn btn-primary mt-3">Adicionar no Relátorio</button>
+                </form>
+            </div>
+            <div className='container caixa-relatorio'>
+                {registros.length > 0 && (
+                    <>
+                        <h3 className="mt-5">Relatório de Registros</h3>
+                        <div className="table-responsive"> {/* Adicione essa div para responsividade */}
+                            <table className="table table-bordered mt-3" id='tabela'>
+                                <thead>
+                                    <tr>
+                                        <th>Processo</th>
+                                        <th>Interessado</th>
+                                        <th>Setor</th>
+                                        <th>Tipo de Documento/Assunto</th>
+                                        <th>Valor (R$)</th>
+                                        <th>SGD P Assinatura</th>
+                                        <th>Providência</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {registros.map((registro, index) => (
+                                        <tr key={index}>
+                                            <td>{registro.processo}</td>
+                                            <td>{registro.interessado}</td>
+                                            <td>{registro.setor}</td>
+                                            <td>{registro.tipoDocumento}</td>
+                                            <td className='text-center'>{registro.valor}</td>
+                                            <td>{registro.sgd}</td>
+                                            <td>{registro.providencia}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </>
+                )}
+            </div>
 
-            {registros.length > 0 && (
-                <>
-                    <h3 className="mt-5">Relatório de Registros</h3>
-                    <table className="table table-bordered mt-3">
-                        <thead>
-                            <tr>
-                                <th>Processo</th>
-                                <th>Interessado</th>
-                                <th>Setor</th>
-                                <th>Tipo de Documento/Assunto</th>
-                                <th>Valor (R$)</th>
-                                <th>SGD P Assinatura</th>
-                                <th>Providência</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {registros.map((registro, index) => (
-                                <tr key={index}>
-                                    <td>{registro.processo}</td>
-                                    <td>{registro.interessado}</td>
-                                    <td>{registro.setor}</td>
-                                    <td>{registro.tipoDocumento}</td>
-                                    <td className='text-center'>{registro.valor}</td>
-                                    <td>{registro.sgd}</td>
-                                    <td>{registro.providencia}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </>
-            )}
         </div>
     )
 }
