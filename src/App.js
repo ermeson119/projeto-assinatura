@@ -12,7 +12,8 @@ function App() {
         <Img src={Imagagem}/>
         <Nav>
           <A href='#text-formulario'>Formulário</A>
-          <A href='#tabela'>Registro</A>
+          <A href='#tabela'>Registro do dia</A>
+          <A href='#tabela'>Historico de Registro</A>
         </Nav>
       </Header>
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Img = styled.img`
-  margin-right: 110vh;
+  margin-right: 80vh;
   width: 39vh;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7)); /* Sombra para destacar a logo */
 `;
@@ -38,6 +38,7 @@ export const Nav = styled.nav`
 `;
 
 export const A = styled.a`
+white-space: nowrap;
 
   color: #ffffff;
   text-decoration: none;

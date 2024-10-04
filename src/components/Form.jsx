@@ -46,17 +46,14 @@ export default function Form() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Verificar se o campo "processo" e "valor" estão vazios, e se sim, atribuir "***"
         const updatedFormData = {
             ...formData,
             processo: formData.processo === "" ? "***" : formData.processo,
-            valor: formData.valor === "" ? "***" : formData.valor,  // Adiciona essa verificação para o campo "valor"
+            valor: formData.valor === "" ? "***" : formData.valor,
         };
 
-        // Adicionar o novo registro à tabela
         setRegistros((prevRegistros) => [...prevRegistros, updatedFormData]);
 
-        // Limpar o formulário após adicionar
         setFormData({
             processo: "",
             interessado: "",
@@ -71,10 +68,8 @@ export default function Form() {
     const handleProcessoChange = (e) => {
         let { value } = e.target;
 
-        // Remove todos os caracteres que não sejam números
         value = value.replace(/\D/g, '');
 
-        // Aplica a máscara no formato ####/#####/######
         if (value.length > 4) {
             value = value.slice(0, 4) + '/' + value.slice(4);
         }
@@ -82,24 +77,16 @@ export default function Form() {
             value = value.slice(0, 10) + '/' + value.slice(10, 16);
         }
 
-        // Atualiza o valor do estado com a máscara
         setFormData((prevData) => ({
             ...prevData,
             processo: value,
         }));
     };
 
-
-    // const finalizarRegistro = () => {
-    //     console.log("Registro finalizado:", registros);
-    //     alert("Registros finalizados com sucesso!");
-    //     setRegistros([]); // Limpar a tabela após finalizar
-    // };
-
     return (
-        <div className='container'>
-            <div className="container mt-5 caixa shadow" >
-                <h2 className="text-center" id='text-formulario'>Formulário de Registro de Execução Orçamentária e Financeira</h2>
+        <div>
+            <div className="container mt-5 caixa shadow">
+                <h2 className="text-center fw-bold" id='text-formulario'>Formulário de Registro de Execução Orçamentária e Financeira</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="row mb-3">
                         <div className="col">
@@ -109,7 +96,7 @@ export default function Form() {
                                 className="form-control"
                                 id="processo"
                                 value={formData.processo}
-                                onChange={handleProcessoChange}  // Usaremos uma função específica para o campo "processo"
+                                onChange={handleProcessoChange}
                                 placeholder="Digite o número do processo"
                                 required
                             />
@@ -160,7 +147,7 @@ export default function Form() {
                         <div className="col">
                             <label htmlFor="valor" className="form-label">Valor (R$)</label>
                             <input
-                                type="text"  // Alterado para "text" devido à máscara de moeda
+                                type="text"
                                 className="form-control"
                                 id="valor"
                                 value={formData.valor}
@@ -196,45 +183,44 @@ export default function Form() {
                         </div>
                     </div>
 
-                    <button type="submit" className="btn btn-primary mt-3">Adicionar no Relátorio</button>
+                    <button type="submit" className="btn btn-primary mt-3">Adicionar no Relatório</button>
                 </form>
             </div>
-            <div className='container caixa-relatorio'>
-                {registros.length > 0 && (
-                    <>
-                        <h3 className="mt-5">Relatório de Registros</h3>
-                        <div className="table-responsive"> {/* Adicione essa div para responsividade */}
-                            <table className="table table-bordered mt-3" id='tabela'>
-                                <thead>
-                                    <tr>
-                                        <th>Processo</th>
-                                        <th>Interessado</th>
-                                        <th>Setor</th>
-                                        <th>Tipo de Documento/Assunto</th>
-                                        <th>Valor (R$)</th>
-                                        <th>SGD P Assinatura</th>
-                                        <th>Providência</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {registros.map((registro, index) => (
-                                        <tr key={index}>
-                                            <td>{registro.processo}</td>
-                                            <td>{registro.interessado}</td>
-                                            <td>{registro.setor}</td>
-                                            <td>{registro.tipoDocumento}</td>
-                                            <td className='text-center'>{registro.valor}</td>
-                                            <td>{registro.sgd}</td>
-                                            <td>{registro.providencia}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </>
-                )}
-            </div>
-
+            {registros.length > 0 && (
+                <div className="container mt-5 caixa shadow">
+                    <h3 className="text-center mt-3 fw-bold">Relatório de Registros</h3>
+                    <table className="table table-bordered mt-5" id='tabela'>
+                        <thead>
+                            <tr>
+                                <th>Processo</th>
+                                <th>Interessado</th>
+                                <th>Setor</th>
+                                <th>Tipo de Documento/Assunto</th>
+                                <th>Valor (R$)</th>
+                                <th>SGD P Assinatura</th>
+                                <th>Providência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {registros.map((registro, index) => (
+                                <tr key={index}>
+                                    <td>{registro.processo}</td>
+                                    <td>{registro.interessado}</td>
+                                    <td>{registro.setor}</td>
+                                    <td>{registro.tipoDocumento}</td>
+                                    <td className='text-center'>{registro.valor}</td>
+                                    <td>{registro.sgd}</td>
+                                    <td>{registro.providencia}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className="mx-4 mt-3">
+                        <button  className="btn btn-primary mt-3">Enviar Relatório</button>
+                    </div>
+                </div>
+            )}
         </div>
-    )
+
+    );
 }
