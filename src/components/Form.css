@@ -1,5 +1,6 @@
 .caixa{
     background-color: #F1F1F1;
+    margin-top: 10vh;
     padding: 50px;
     border: solid 1px #B6B6B6;
     border-radius: 10px;
@@ -7,12 +8,4 @@
 
 form{
     padding: 30px;
-}
-
-.caixa-relatorio{
-    margin-top: 20vh;
-    background-color: #F1F1F1;
-    padding: 40px;
-    border: solid 1px #B6B6B6;
-    border-radius: 10px;
 }

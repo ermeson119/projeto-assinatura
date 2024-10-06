@@ -1,0 +1,32 @@
+header {
+    background: #044CB8;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 25px 20px;
+}
+
+.logo-menu {
+    margin-right: 80vh;
+    width: 39vh;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+}
+
+.nav-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.link-menu {
+    white-space: nowrap;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.link-menu:hover {
+    opacity: 0.8;
+}

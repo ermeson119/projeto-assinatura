@@ -85,7 +85,7 @@ export default function Form() {
 
     return (
         <div>
-            <div className="container mt-5 caixa shadow">
+            <div className="container caixa shadow">
                 <h2 className="text-center fw-bold" id='text-formulario'>Formulário de Registro de Execução Orçamentária e Financeira</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="row mb-3">
